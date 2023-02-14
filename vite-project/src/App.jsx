@@ -1,4 +1,7 @@
+import { TextField } from "@mui/material"
 import { useState } from "react"
+
+const mainColour = "#0099aa"
 
 const styles = {
   body: {
@@ -9,7 +12,8 @@ const styles = {
     width: "70%",
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#0099aa"
+    backgroundColor: mainColour
+
   },
   container: {
     height: "100%",
@@ -20,35 +24,66 @@ const styles = {
   loginHeader: {
     alignSelf: "center"
   },
-  field: {
-    marginTop: 50,
-    padding: 5
+  fields: {
+    display: "grid",
+    gridRow: 10,
+    padding: 10,
+    gridGap: 30
   },
   input: {
     height: 45,
     borderRadius: 5,
     border: 0,
     color: "black",
-    backgroundColor: "#aaaaaa"
+    backgroundColor: "#aaaaaa",
   },
   button: {
-    backgroundColor: "#0099aa",
-    width: "100%",
-    margin: "100px 5px 0 5px",
-    alignSelf: "center"
+    backgroundColor: mainColour,
+  },
+  errMsg: {
+    color: "red",
+    fontWeight: "bold",
   }
 }
 
 export default function App() {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
+  const [errMsg, setErrMsg] = useState("")
 
   function handleClick() {
-    console.log("hello")
+    setErrMsg("")
+
+    if (username === "") {
+      setErrMsg("Username is empty")
+      return
+    } else if (password === "") {
+      setErrMsg("Password is empty")
+      return
+    }
+
+    if (username === "user" && password === "pass") {
+      alert("valid")
+    } else {
+      setErrMsg("Invalid Username or Password")
+    }
   }
 
-  function handleChange(event) {
-    setUsername(event.target.value)
+  function handleChange(ev) {
+    if (ev.target.name === "username") {
+      setUsername(ev.target.value.toLowerCase())
+    } else if (ev.target.name === "password") {
+      setPassword(ev.target.value)
+    } else {
+
+    }
+
+    /*
+    EVENT - GIBBERISH ABOUT WHERE THE CHANGE CAME FROM (user clicked this from position x,y on screen)
+    EVENT.TARGET - Information about the field (<input style={.....} placeholder="username"/>)
+    EVENT.TARGET.VALUE - The actual info we want
+    */
+
   }
 
 
@@ -78,33 +113,50 @@ export default function App() {
         </h2>
 
         {/* Username */}
-        <article
-          style={styles.field}
-        >
-          <label>Username</label>
-          <input
-            placeholder="johns"
-            style={styles.input}
-            onChange={(event) => handleChange(event)}
-          />
+        <article style={styles.fields}>
+
+          <article
+            style={styles.field}
+          >
+            <TextField
+              label="Username"
+              placeholder="Username"
+              name="username"
+              error={errMsg.includes("Username")}
+              onChange={handleChange}//LOOK AT ME OVER HERE!!!
+            />
+          </article>
+
+          {/* Password */}
+          <article
+            style={styles.field}
+          >
+            <label>Password</label>
+            <input
+              type="password"
+              style={styles.input}
+              name="password"
+              error={errMsg.includes("Password")}
+              onChange={handleChange}//LOOK AT ME OVER HERE!!!
+            />
+          </article>
+
+
+          {/* Button */}
+          <button
+            style={styles.button}
+            onClick={handleClick}
+          >
+            Login
+          </button>
+
+          {/* Error Message */}
+          <p
+            style={styles.errMsg}
+          >
+            {errMsg}
+          </p>
         </article>
-
-        {/* Password */}
-        <article
-          style={styles.field}
-        >
-          <label>Password</label>
-          <input type="password" style={styles.input} />
-        </article>
-
-        {/* Button */}
-        <button
-          style={styles.button}
-          onClick={() => handleClick()}
-        >
-          Login
-        </button>
-
       </article>
     </section>
   )
