@@ -14,11 +14,6 @@
   -webkit-text-size-adjust: 100%;
 }
 
-#root {
-  width: 100vw;
-  height: 100vh;
-}
-
 a {
   font-weight: 500;
   color: #646cff;
@@ -30,11 +25,10 @@ a:hover {
 }
 
 body {
-
   margin: 0;
   display: flex;
   place-items: center;
-  min-width: 100vw;
+  min-width: 320px;
   min-height: 100vh;
 }
 
@@ -74,18 +68,33 @@ button:focus-visible {
     color: #747bff;
   }
 
-
   button {
     background-color: #f9f9f9;
   }
-}
 
-article {
-  display: flex;
-  flex-direction: column
-}
 
-section {
-  display: flex;
-  flex-direction: row
+
+  #root {
+    width: 100vw;
+    height: 100vh;
+  }
+
+  box {
+    display: flex;
+    align-content: center;
+  }
+
+  article {
+    display: flex;
+    flex-direction: column;
+
+
+  }
+
+  section {
+    display: flex;
+    flex-direction: row;
+  }
+
+
 }

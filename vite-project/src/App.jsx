@@ -1,49 +1,62 @@
-import { TextField } from "@mui/material"
+import { Button, TextField } from "@mui/material"
 import { useState } from "react"
 
-const mainColour = "#0099aa"
-
 const styles = {
-  body: {
-    width: "100%",
-    height: "100%"
-  },
-  fluff: {
-    width: "70%",
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: mainColour
-
-  },
-  container: {
-    height: "100%",
-    width: '30%',
-    backgroundColor: "white",
+  header: {
     color: "black",
-  },
-  loginHeader: {
-    alignSelf: "center"
-  },
-  fields: {
-    display: "grid",
-    gridRow: 10,
-    padding: 10,
-    gridGap: 30
+    fontSize: 22,
+    backgroundColor: "white",
+    margin: "0",
+    width: "100%",
+    height: "100%",
+
+
+
   },
   input: {
     height: 45,
-    borderRadius: 5,
-    border: 0,
-    color: "black",
-    backgroundColor: "#aaaaaa",
+    borderRadius: 5
+
+
+
   },
-  button: {
-    backgroundColor: mainColour,
+  Button: {
+    backgroundColor: "#0099aa",
+    color: "white"
+
+
+  },
+  Body: {
+    fontsize: 26
   },
   errMsg: {
     color: "red",
-    fontWeight: "bold",
-  }
+    fontSize: 22
+  },
+
+  box: {
+
+    width: "70%",
+    backgroundColor: "#0099aa",
+    justifyContent: "center",
+    alignItems: "center",
+
+  },
+
+  login: {
+    display: "grid",
+    gridColumns: 1,
+    gridRows: 3,
+    gridGap: "10px"
+  },
+
+  articleLogIn: {
+    padding: 10
+  },
+  subHeading: {
+    color: "white",
+  },
+
 }
 
 export default function App() {
@@ -52,113 +65,80 @@ export default function App() {
   const [errMsg, setErrMsg] = useState("")
 
   function handleClick() {
-    setErrMsg("")
+    console.log(username)
+  }
 
+  function handleClick() {
     if (username === "") {
-      setErrMsg("Username is empty")
-      return
+      setErrMsg("Please choose a Username")
     } else if (password === "") {
-      setErrMsg("Password is empty")
-      return
-    }
+      setErrMsg("Please choose a Password")
 
-    if (username === "user" && password === "pass") {
-      alert("valid")
-    } else {
-      setErrMsg("Invalid Username or Password")
-    }
+    } if ((username === "User") && (password === "Pass")) {
+      console.log("valid")
+    } else { setErrMsg("invalid") }
   }
 
-  function handleChange(ev) {
-    if (ev.target.name === "username") {
-      setUsername(ev.target.value.toLowerCase())
-    } else if (ev.target.name === "password") {
-      setPassword(ev.target.value)
-    } else {
 
+
+
+  function handleChange(event) {
+    if (event.target.name === "Username") {
+
+      setUsername(event.target.value)
+    } else if (event.target.name === "Password") {
+      setPassword(event.target.value)
     }
 
-    /*
-    EVENT - GIBBERISH ABOUT WHERE THE CHANGE CAME FROM (user clicked this from position x,y on screen)
-    EVENT.TARGET - Information about the field (<input style={.....} placeholder="username"/>)
-    EVENT.TARGET.VALUE - The actual info we want
-    */
-
   }
+
+
 
 
   return (
-    <section
-      style={styles.body}
-    >
 
-      {/*Fluff Box */}
+    <section class="column"
+      style={styles.header}>
       <article
-        style={styles.fluff}
+        style={styles.box}
       >
-        <article>
-          <h1>Welcome Back!</h1>
-          <h2>You can sign in to acces with your existing account</h2>
-        </article>
+        <h1
+          style={styles.subHeading}> Welcome Back!</h1>
+        <p
+          style={styles.subHeading}> You can sign in to access with your existing account</p>
       </article>
-
-      {/* Login Container */}
       <article
-        style={styles.container}
-      >
-        <h2
-          style={styles.loginHeader}
-        >
-          Login
-        </h2>
+        style={styles.articleLogIn}>
+        <h2> Login </h2>
+        <article
+          style={styles.login}>
 
-        {/* Username */}
-        <article style={styles.fields}>
-
-          <article
-            style={styles.field}
-          >
-            <TextField
-              label="Username"
-              placeholder="Username"
-              name="username"
-              error={errMsg.includes("Username")}
-              onChange={handleChange}//LOOK AT ME OVER HERE!!!
-            />
-          </article>
-
-          {/* Password */}
-          <article
-            style={styles.field}
-          >
-            <label>Password</label>
-            <input
-              type="password"
-              style={styles.input}
-              name="password"
-              error={errMsg.includes("Password")}
-              onChange={handleChange}//LOOK AT ME OVER HERE!!!
-            />
-          </article>
-
-
-          {/* Button */}
-          <button
-            style={styles.button}
-            onClick={handleClick}
-          >
-            Login
-          </button>
-
-          {/* Error Message */}
+          <label>Username</label>
+          <TextField
+            onChange={handleChange}
+          />
+          <label>Password</label>
+          <TextField
+            type="password"
+            onChange={handleChange}
+          />
           <p
             style={styles.errMsg}
           >
             {errMsg}
           </p>
+          <Button
+
+            onClick={handleClick}
+          >
+            Login
+          </Button>
+
         </article>
+
       </article>
+
     </section>
+
   )
 }
-
